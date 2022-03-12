@@ -27,8 +27,6 @@
     position: absolute
     width: 8rem
     height: 8rem
-    // box-shadow: 0 0 0 2px rgba(#fff, .1)
-    // border-radius: .5rem
     overflow: visible
     z-index: 50
 
@@ -41,6 +39,7 @@
       img
         width: 100%
         height: 100%
+        object-fit: contain
         pointer-events: none
         transition: all .2s ease
 

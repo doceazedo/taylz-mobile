@@ -17,7 +17,7 @@ export const isTrashActive = writable(false);
 // ];
 
 const createStickersList = () => {
-  const { subscribe, update } = writable<Sticker[]>([]);
+  const { subscribe, set, update } = writable<Sticker[]>([]);
 
   return {
     subscribe,
@@ -36,6 +36,7 @@ const createStickersList = () => {
         return list;
       });
     },
+    clear: () => set([]),
   };
 };
 

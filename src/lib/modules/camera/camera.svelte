@@ -5,6 +5,7 @@
   import { CameraResult, Camera } from '$lib/components';
   import { CameraResultOptions } from '.';
   import { cameraState } from './camera.store';
+  import { stickersList } from '$lib/modules/sticker/sticker.store';
 
   let cameraSide: 'front' | 'back' = 'front';
   let stream: MediaStream;
@@ -39,7 +40,11 @@
     context.clearRect(0, 0, canvas.width, canvas.height);
   };
 
-  cameraState.subscribe((state) => state == 'CAMERA' && clearPicture());
+  cameraState.subscribe((state) => {
+    if (state != 'CAMERA') return;
+    clearPicture();
+    stickersList.clear();
+  });
 
   const setupCamera = async () => {
     if (!navigator?.mediaDevices?.getUserMedia) {
