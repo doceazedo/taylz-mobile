@@ -6,7 +6,7 @@
   import { holdingSticker, isTrashActive } from './sticker.store';
   import type { Transform } from './sticker.types';
 
-  export let src: string, key: number;
+  export let src: string, id: string;
 
   let transform: Transform = {
     angle: 0,
@@ -42,7 +42,7 @@
       .draggable({
         listeners: {
           start: () => {
-            $holdingSticker = key;
+            $holdingSticker = id;
             isHoldingThis = true;
           },
           move: dragMoveListener,

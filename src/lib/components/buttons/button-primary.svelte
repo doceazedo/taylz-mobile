@@ -1,12 +1,14 @@
 <script lang="ts">
   import { createRipple } from '.';
 
-  export let isDanger = false,
+  export let isActive = true,
+    isDanger = false,
     isInverted = false;
 </script>
 
 <button
   class="button"
+  class:active={isActive}
   class:danger={isDanger}
   class:invert={isInverted}
   on:click={createRipple}

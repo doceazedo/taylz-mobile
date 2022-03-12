@@ -1,8 +1,10 @@
 <script lang="ts">
   import { createRipple } from '.';
+
+  export let isActive = true;
 </script>
 
-<button class="button" on:click={createRipple} on:click>
+<button class="button" class:active={isActive} on:click={createRipple} on:click>
   <slot />
 </button>
 

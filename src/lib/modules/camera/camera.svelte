@@ -4,7 +4,7 @@
   import { browser } from '$app/env';
   import { CameraResult, Camera } from '$lib/components';
   import { CameraResultOptions } from '.';
-  import { cameraHeight, cameraState } from './camera.store';
+  import { cameraState } from './camera.store';
 
   let cameraSide: 'front' | 'back' = 'front';
   let stream: MediaStream;
@@ -52,9 +52,6 @@
   const startStream = async (constraints: MediaStreamConstraints) => {
     stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
-
-    const rect = video.getBoundingClientRect();
-    $cameraHeight = Math.ceil(rect.height);
   };
 
   const switchCamera = async () => {
@@ -89,6 +86,7 @@
   {takePicture}
   canTakePicture={$cameraState == 'CAMERA'}
   flipHorizontally={cameraSide == 'front'}
+  active={$cameraState == 'CAMERA'}
 />
 <CameraResult bind:canvas />
 {#if $cameraState == 'EDIT'}

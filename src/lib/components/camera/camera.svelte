@@ -4,7 +4,8 @@
   export let video: HTMLVideoElement,
     takePicture: () => void,
     canTakePicture: boolean,
-    flipHorizontally: boolean;
+    flipHorizontally: boolean,
+    active: boolean;
 </script>
 
 {#if canTakePicture}
@@ -20,7 +21,7 @@
   </button>
 {/if}
 
-<div class="camera" class:flip={flipHorizontally}>
+<div class="camera" class:flip={flipHorizontally} class:active>
   <!-- svelte-ignore a11y-media-has-caption -->
   <video bind:this={video} autoplay={true} />
 </div>
@@ -42,6 +43,9 @@
 
     &.flip video
       transform: scaleX(-1)
+
+    &:not(.active)
+      display: none
 
   .shutter
     position: fixed

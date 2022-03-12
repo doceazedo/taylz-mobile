@@ -4,8 +4,7 @@
   import { browser } from '$app/env';
   import { StickerDelete } from '$lib/components';
   import { holdingSticker, isTrashActive } from './sticker.store';
-
-  export let deleteSticker: (key: number) => void;
+  import { stickersList } from './sticker.store';
 
   let deleteBtn: HTMLDivElement;
 
@@ -22,7 +21,7 @@
         $isTrashActive = false;
       },
       ondrop: () => {
-        deleteSticker($holdingSticker);
+        stickersList.remove($holdingSticker);
         $holdingSticker = null;
         $isTrashActive = false;
       },

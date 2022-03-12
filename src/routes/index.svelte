@@ -1,9 +1,9 @@
 <script lang="ts">
   import { CameraLayer, StickersLayer } from '$lib/modules';
-  import { showStickersLayer } from '$lib/modules/sticker/sticker.store';
+  import { cameraState } from '$lib/modules/camera/camera.store';
 </script>
 
 <CameraLayer />
-{#if $showStickersLayer}
+{#if $cameraState == 'EDIT'}
   <StickersLayer />
 {/if}

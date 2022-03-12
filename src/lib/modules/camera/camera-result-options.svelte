@@ -10,18 +10,26 @@
     IconArrowRight,
   } from '$lib/components/icons';
   import { cameraState } from './camera.store';
-  import { showStickersLayer } from '$lib/modules/sticker/sticker.store';
+  import { StickerDelete } from '$lib/modules/sticker';
+  import { StickerPicker } from '$lib/modules/sticker-picker';
 
   const transition = {
     duration: 300,
     y: -32,
     opacity: 0,
   };
+
+  const toggleStickerPicker = () =>
+    (isStickerPickerOpen = !isStickerPickerOpen);
+
   let mute = false;
+  let isStickerPickerOpen = false;
 </script>
 
 <div class="result-options">
   <header class="buttons" transition:fly={{ ...transition, y: -32 }}>
+    <StickerDelete />
+
     <ButtonPrimaryCircle on:click={() => ($cameraState = 'CAMERA')}>
       <IconX />
     </ButtonPrimaryCircle>
@@ -42,9 +50,7 @@
         Efeitos
       </ButtonPrimary>
 
-      <ButtonPrimary
-        on:click={() => ($showStickersLayer = !$showStickersLayer)}
-      >
+      <ButtonPrimary on:click={toggleStickerPicker}>
         <IconSticker />
         Adesivos
       </ButtonPrimary>
@@ -58,6 +64,10 @@
     </div>
   </footer>
 </div>
+
+{#if isStickerPickerOpen}
+  <StickerPicker close={toggleStickerPicker} />
+{/if}
 
 <style lang="sass">
   .result-options

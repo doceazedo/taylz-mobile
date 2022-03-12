@@ -1,53 +1,26 @@
 <script lang="ts">
-  import { StickerDelete, Sticker } from '.';
-  import { v4 as uuidv4 } from 'uuid';
-
-  export let debug = false;
-
-  let stickerUrl = '/amongus.png';
-
-  let stickers = [
-    {
-      id: uuidv4(),
-      src: '/amongus.png',
-    },
-    {
-      id: uuidv4(),
-      src: '/catjam.gif',
-    },
-  ];
-
-  const addSticker = () => {
-    stickers.push({
-      id: uuidv4(),
-      src: stickerUrl,
-    });
-    console.log(stickers);
-    stickers = stickers;
-  };
-
-  const deleteSticker = (key: number) => {
-    stickers.splice(key, 1);
-    stickers = stickers;
-  };
+  import { Sticker } from '.';
+  import { stickersList } from './sticker.store';
 </script>
 
-{#if debug}
-  <div class="debug">
-    <input type="text" bind:value={stickerUrl} />
-    <button on:click={addSticker}> Add sticker </button>
-  </div>
-{/if}
-
-{#each stickers as sticker, key (sticker)}
-  <Sticker src={sticker.src} {key} />
+{#each $stickersList as sticker, i (sticker)}
+  <Sticker src={sticker.src} id={sticker.id} />
 {/each}
 
-<StickerDelete {deleteSticker} />
+<div class="sticker-delete-wrapper">
+  <!-- <StickerDelete {deleteSticker} /> -->
+</div>
 
 <style lang="sass">
-  .debug
+  .sticker-delete-wrapper
     position: fixed
-    top: .5rem
-    left: .5rem
+    top: 0
+    left: 0
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    width: 100%
+    aspect-ratio: 9/16
+    pointer-events: none
+    z-index: 49
 </style>
