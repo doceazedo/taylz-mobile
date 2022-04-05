@@ -1,4 +1,5 @@
 <script lang="ts">
+  import html2canvas from 'html2canvas';
   import { fly } from 'svelte/transition';
   import { ButtonPrimaryCircle, ButtonPrimary } from '$lib/components/buttons';
   import {
@@ -9,7 +10,7 @@
     IconSticker,
     IconArrowRight,
   } from '$lib/components/icons';
-  import { cameraState } from './camera.store';
+  import { cameraState, cameraSide } from './camera.store';
   import { StickerDelete } from '$lib/modules/sticker';
   import { StickerPicker } from '$lib/modules/sticker-picker';
 
@@ -24,6 +25,26 @@
 
   let mute = false;
   let isStickerPickerOpen = false;
+
+  const screenshot = () => {
+    console.log('printt');
+    html2canvas(document.querySelector('.stickers'), {
+      backgroundColor: null,
+    }).then((stickersLayer) => {
+      const cameraResult: HTMLCanvasElement =
+        document.querySelector('.camera-result');
+
+      const ctx = cameraResult.getContext('2d');
+      ctx.save();
+      if ($cameraSide == 'front') {
+        ctx.translate(cameraResult.width, 0);
+        ctx.scale(-1, 1);
+      }
+      ctx.drawImage(stickersLayer, 0, 0);
+      ctx.restore();
+      // document.body.appendChild(canvas);
+    });
+  };
 </script>
 
 <div class="result-options">
@@ -56,7 +77,7 @@
       </ButtonPrimary>
     </div>
 
-    <div class="buttons-column">
+    <div class="buttons-column" on:click={screenshot}>
       <ButtonPrimary>
         Publicar
         <IconArrowRight />

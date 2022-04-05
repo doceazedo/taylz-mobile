@@ -32,6 +32,7 @@
   },
   "type": "module",
   "dependencies": {
+    "html2canvas": "^1.4.1",
     "interactjs": "^1.10.11",
     "uuid": "^8.3.2"
   }

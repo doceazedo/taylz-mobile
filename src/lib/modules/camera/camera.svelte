@@ -4,10 +4,9 @@
   import { browser } from '$app/env';
   import { CameraResult, Camera } from '$lib/components';
   import { CameraResultOptions } from '.';
-  import { cameraState } from './camera.store';
+  import { cameraState, cameraSide } from './camera.store';
   import { stickersList } from '$lib/modules/sticker/sticker.store';
 
-  let cameraSide: 'front' | 'back' = 'front';
   let stream: MediaStream;
   const width = 1080;
   const height = 1920;
@@ -25,7 +24,7 @@
     const context = canvas.getContext('2d');
     canvas.width = width;
     canvas.height = height;
-    if (cameraSide == 'front') {
+    if ($cameraSide == 'front') {
       context.translate(width, 0);
       context.scale(-1, 1);
     }
@@ -62,11 +61,11 @@
   const switchCamera = async () => {
     stream.getTracks().forEach((track) => track.stop());
 
-    cameraSide = cameraSide == 'front' ? 'back' : 'front';
+    $cameraSide = $cameraSide == 'front' ? 'back' : 'front';
     const devices = await navigator.mediaDevices.enumerateDevices();
     const videoDevices = devices.filter(
       (device) =>
-        device.kind === 'videoinput' && device.label.includes(cameraSide),
+        device.kind === 'videoinput' && device.label.includes($cameraSide),
     );
 
     await startStream({
@@ -90,7 +89,7 @@
   bind:video
   {takePicture}
   canTakePicture={$cameraState == 'CAMERA'}
-  flipHorizontally={cameraSide == 'front'}
+  flipHorizontally={$cameraSide == 'front'}
   active={$cameraState == 'CAMERA'}
 />
 <CameraResult bind:canvas />

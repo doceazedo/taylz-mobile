@@ -3,15 +3,21 @@
   import { stickersList } from './sticker.store';
 </script>
 
-{#each $stickersList as sticker, i (sticker)}
-  <Sticker src={sticker.src} id={sticker.id} />
-{/each}
+<div class="stickers">
+  {#each $stickersList as sticker, i (sticker)}
+    <Sticker src={sticker.src} id={sticker.id} />
+  {/each}
+</div>
 
 <div class="sticker-delete-wrapper">
   <!-- <StickerDelete {deleteSticker} /> -->
 </div>
 
 <style lang="sass">
+  .stickers
+    width: 100%
+    aspect-ratio: 9/16
+    
   .sticker-delete-wrapper
     position: fixed
     top: 0
